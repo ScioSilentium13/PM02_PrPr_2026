@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="CityAppealsApp.Views.CitizenView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:CityAppealsApp.ViewModels">
+    <UserControl.DataContext>
+        <vm:CitizenViewModel/>
+    </UserControl.DataContext>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <Button Content="Обновить" Command="{Binding RefreshCommand}" Width="90" Margin="0,0,5,0"/>
+            <Button Content="Создать обращение" Command="{Binding CreateAppealCommand}" Width="150" Margin="0,0,5,0"/>
+            <Button Content="Детали" Command="{Binding OpenDetailCommand}" Width="80"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,5">
+            <TextBlock Text="Поиск:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="0,0,5,0"/>
+            <Button Content="Найти" Command="{Binding SearchCommand}" Width="70"/>
+        </StackPanel>
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Appeals}" SelectedItem="{Binding SelectedAppeal}" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding AppealID}" Width="50"/>
+                <DataGridTextColumn Header="Заголовок" Binding="{Binding Title}" Width="250"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding CreatedAt, StringFormat=dd.MM.yyyy}" Width="100"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status.Name}" Width="100"/>
+                <DataGridTemplateColumn Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Удалить" 
+                                    Command="{Binding DataContext.DeleteAppealCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}"
+                                    Background="LightCoral"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,162 @@
+﻿<Window
+    x:Class="CityAppealsApp.Views.AppealDetailWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="clr-namespace:CityAppealsApp.ViewModels"
+    Title="Детали обращения"
+    Width="750"
+    Height="600"
+    WindowStartupLocation="CenterOwner">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock VerticalAlignment="Center" Text="Заголовок:" />
+        <TextBlock
+            Grid.Column="1"
+            Margin="5"
+            VerticalAlignment="Center"
+            FontWeight="Bold"
+            Text="{Binding Appeal.Title}" />
+        <TextBlock
+            Grid.Row="1"
+            VerticalAlignment="Center"
+            Text="Категория:" />
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="5,0"
+            VerticalAlignment="Center"
+            Text="{Binding Appeal.Category.Name}" />
+        <TextBlock
+            Grid.Row="2"
+            Margin="0,5,0,0"
+            VerticalAlignment="Top"
+            Text="Описание:" />
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="5,5,0,0"
+            Text="{Binding Appeal.Description}"
+            TextWrapping="Wrap" />
+
+        <TextBlock
+            Grid.Row="3"
+            VerticalAlignment="Center"
+            Text="Статус:" />
+        <ComboBox
+            Grid.Row="3"
+            Grid.Column="1"
+            Margin="5,5,0,0"
+            DisplayMemberPath="Name"
+            ItemsSource="{Binding AllStatuses}"
+            SelectedItem="{Binding SelectedStatus}"
+            Visibility="{Binding StatusEditorVisibility}" />
+        <TextBlock
+            Grid.Row="3"
+            Grid.Column="1"
+            Margin="5,5,0,0"
+            VerticalAlignment="Center"
+            Text="{Binding Appeal.Status.Name}"
+            Visibility="{Binding StatusTextViewerVisibility}" />
+
+        <TextBlock
+            Grid.Row="4"
+            VerticalAlignment="Center"
+            Text="Исполнитель:" />
+        <ComboBox
+            Grid.Row="4"
+            Grid.Column="1"
+            Margin="5,5,0,0"
+            DisplayMemberPath="FullName"
+            ItemsSource="{Binding Executors}"
+            SelectedItem="{Binding SelectedExecutor}"
+            Visibility="{Binding ExecutorEditorVisibility}" />
+        <TextBlock
+            Grid.Row="4"
+            Grid.Column="1"
+            Margin="5,5,0,0"
+            VerticalAlignment="Center"
+            Text="{Binding Appeal.AssignedTo.FullName, TargetNullValue=Не назначен}"
+            Visibility="{Binding ExecutorTextViewerVisibility}" />
+
+        <Expander
+            Grid.Row="5"
+            Grid.ColumnSpan="2"
+            Header="История"
+            IsExpanded="True"
+            Visibility="{Binding HistoryVisibility}">
+            <ListBox Height="100" ItemsSource="{Binding Histories}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <Run Text="{Binding ActionDate, StringFormat=dd.MM.yyyy HH:mm}" />
+                            –<Run Text="{Binding Action}" />
+                            –<Run Text="{Binding Comment}" />
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Expander>
+
+        <Expander
+            Grid.Row="6"
+            Grid.ColumnSpan="2"
+            Header="Вложения"
+            IsExpanded="True">
+            <ListBox Height="80" ItemsSource="{Binding Attachments}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Button
+                            Padding="0"
+                            HorizontalAlignment="Left"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            Command="{Binding DataContext.OpenAttachmentCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                            CommandParameter="{Binding}"
+                            Content="{Binding FileName}"
+                            Cursor="Hand"
+                            Foreground="{StaticResource PrimaryBrush}"
+                            ToolTip="{Binding FilePath}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Expander>
+
+        <StackPanel
+            Grid.Row="7"
+            Grid.ColumnSpan="2"
+            Margin="0,15,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Orientation="Horizontal"
+            Visibility="{Binding SaveButtonVisibility}">
+            <Button
+                Margin="5"
+                Command="{Binding SaveCommand}"
+                Content="Сохранить изменения" />
+            <TextBox
+                Width="250"
+                Margin="5"
+                Text="{Binding NewComment, UpdateSourceTrigger=PropertyChanged}"
+                Visibility="{Binding CommentEditorVisibility}" />
+            <Button
+                Margin="5"
+                Command="{Binding AddCommentCommand}"
+                Content="Добавить комментарий"
+                Visibility="{Binding CommentEditorVisibility}" />
+        </StackPanel>
+    </Grid>
+</Window>
