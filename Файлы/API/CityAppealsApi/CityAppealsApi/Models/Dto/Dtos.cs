@@ -6,6 +6,17 @@
         public string Password { get; set; } = string.Empty;
     }
 
+    public class RegisterRequest
+    {
+        public string Login { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public string ConfirmPassword { get; set; } = string.Empty;
+        public string? Email { get; set; }
+        public string? Phone { get; set; }
+        public string FullName { get; set; } = string.Empty;
+        public string? Address { get; set; }
+    }
+
     public class LoginResponse
     {
         public int UserId { get; set; }

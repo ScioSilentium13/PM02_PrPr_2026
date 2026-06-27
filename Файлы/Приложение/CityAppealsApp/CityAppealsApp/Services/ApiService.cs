@@ -46,8 +46,16 @@ namespace CityAppealsApp.Services
                 var response = await _client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
-                    var data = await response.Content.ReadFromJsonAsync<T>();
-                    return new ApiResponse<T> { Success = true, Data = data };
+                    if (typeof(T) == typeof(byte[]))
+                    {
+                        var data = await response.Content.ReadAsByteArrayAsync();
+                        return new ApiResponse<T> { Success = true, Data = (T)(object)data };
+                    }
+                    else
+                    {
+                        var data = await response.Content.ReadFromJsonAsync<T>();
+                        return new ApiResponse<T> { Success = true, Data = data };
+                    }
                 }
                 else
                 {

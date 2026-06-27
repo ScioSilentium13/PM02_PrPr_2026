@@ -66,14 +66,15 @@ namespace CityAppealsApp.ViewModels
                 return;
             }
 
-            var response = await _api.PostAsync<object>("api/users", new
+            var response = await _api.PostAsync<object>("api/auth/register", new
             {
                 Login,
                 Password,
+                ConfirmPassword,
+                Email,
+                Phone,
                 FullName,
-                Role = "Гражданин",
-                Department = (string?)null,
-                Position = (string?)null
+                Address
             });
 
             if (!response.Success)

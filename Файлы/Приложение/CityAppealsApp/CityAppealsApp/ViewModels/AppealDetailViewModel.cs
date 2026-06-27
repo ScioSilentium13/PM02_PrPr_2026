@@ -139,12 +139,6 @@ namespace CityAppealsApp.ViewModels
         private void OpenAttachment(object? param)
         {
             if (param is not Attachment attachment) return;
-            // Скачиваем файл через API и открываем
-            var temp = Path.GetTempPath();
-            var filePath = Path.Combine(temp, attachment.FileName);
-            // Простая реализация: предполагаем, что можем скачать по url api/attachments/{id}/download
-            // Но проще: открыть с использованием пути из модели, если он абсолютный?
-            // Используем API для скачивания
             _ = DownloadAndOpen(attachment);
         }
 
