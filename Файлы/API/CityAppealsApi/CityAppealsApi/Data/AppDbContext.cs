@@ -13,6 +13,14 @@ namespace CityAppealsApi.Data
         public DbSet<AppealHistory> AppealHistories { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
 
+        public AppDbContext() : base()
+        {
+        }
+
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

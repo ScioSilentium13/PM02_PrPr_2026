@@ -1,3 +1,6 @@
 <Solution>
   <Project Path="CityAppealsApi/CityAppealsApi.csproj" />
+  <Project Path="IntegrationTests/IntegrationTests.csproj" Id="d5f29db3-bcd1-4a26-bef3-8c937b410019">
+    <BuildDependency Project="CityAppealsApi/CityAppealsApi.csproj" />
+  </Project>
 </Solution>

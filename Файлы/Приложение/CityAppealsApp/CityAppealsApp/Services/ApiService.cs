@@ -14,9 +14,14 @@ namespace CityAppealsApp.Services
         private string _login = string.Empty;
         private string _password = string.Empty;
 
-        public ApiService(string baseUrl = "http://localhost:5146/")
+        public ApiService(string baseUrl = "http://localhost:5000/") : this(new HttpClient())
         {
-            _client = new HttpClient { BaseAddress = new Uri(baseUrl) };
+            _client.BaseAddress = new Uri(baseUrl);
+        }
+
+        public ApiService(HttpClient client)
+        {
+            _client = client;
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }

@@ -1,0 +1,184 @@
+{
+	"info": {
+		"_postman_id": "0bec69f4-7006-4618-b426-f020a0bea3de",
+		"name": "PM02_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50802475",
+		"_collection_link": "https://rissc446-1303808.postman.co/workspace/%D1%80%D0%B8%D1%81%D1%81%D0%BA%D0%B8%D1%81%D1%8B's-Workspace~2fa04c30-655f-44e4-855b-58fdf154fc68/collection/50802475-0bec69f4-7006-4618-b426-f020a0bea3de?action=share&source=collection_link&creator=50802475"
+	},
+	"item": [
+		{
+			"name": "Логин",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"login\": \"a1\", \"password\": \"1\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/api/auth/login",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Создать новое обращение",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Login",
+						"value": "s1",
+						"type": "text"
+					},
+					{
+						"key": "X-Password",
+						"value": "1",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"title\": \"Тестовая заявка\", \"categoryId\": 1 }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/api/appeals",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"appeals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получить пользователей (админ)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Login",
+						"value": "a1",
+						"type": "text"
+					},
+					{
+						"key": "X-Password",
+						"value": "1",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base-url}}/api/users",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Создать оператора (админ)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Login",
+						"value": "a1",
+						"type": "text"
+					},
+					{
+						"key": "X-Password",
+						"value": "1",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"login\": \"op2\", \"password\": \"pass\", \"fullName\": \"Оператор 2\", \"role\": \"Оператор\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/api/users",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base-url",
+			"value": ""
+		}
+	]
+}
