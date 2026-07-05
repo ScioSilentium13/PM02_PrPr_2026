@@ -14,7 +14,7 @@ namespace CityAppealsApp.Services
         private string _login = string.Empty;
         private string _password = string.Empty;
 
-        public ApiService(string baseUrl = "http://localhost:5000/") : this(new HttpClient())
+        public ApiService(string baseUrl = "http://localhost:5146/") : this(new HttpClient())
         {
             _client.BaseAddress = new Uri(baseUrl);
         }
